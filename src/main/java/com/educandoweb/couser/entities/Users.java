@@ -11,14 +11,14 @@ public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
     private String email;
     private String phone;
     private String password;
 
 
-    public Users(long id, String name, String email, String phone, String password) {
+    public Users(Long id, String name, String email, String phone, String password) {
         this.id = id;
         this.name = name;
         this.email = email;
