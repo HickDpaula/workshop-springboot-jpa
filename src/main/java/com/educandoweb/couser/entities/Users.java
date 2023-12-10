@@ -1,11 +1,17 @@
 package com.educandoweb.couser.entities;
 
+
+import jakarta.persistence.*;
+
 import java.io.Serializable;
 import java.util.Objects;
-
+@Entity
+@Table(name = "tb_users")
 public class Users implements Serializable {
     private static final long serialVersionUID = 1L;
-    private String id;
+    @Id
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    private long id;
     private String name;
     private String email;
     private String phone;
@@ -13,18 +19,18 @@ public class Users implements Serializable {
 
 
     public Users(long id, String name, String email, String phone, String password) {
-        this.id = String.valueOf(id);
+        this.id = id;
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.password = password;
     }
 
-    public String getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(long id) {
         this.id = id;
     }
 
