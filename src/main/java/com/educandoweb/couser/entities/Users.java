@@ -1,6 +1,7 @@
 package com.educandoweb.couser.entities;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
@@ -19,8 +20,13 @@ public class Users implements Serializable {
     private String phone;
     private String password;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Order> Orders = new ArrayList<>();
+
+    public Users(){
+
+    }
 
 
     public Users(Long id, String name, String email, String phone, String password) {
@@ -88,6 +94,4 @@ public class Users implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
-
-
 }
