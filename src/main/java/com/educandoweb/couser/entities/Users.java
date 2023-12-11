@@ -4,6 +4,8 @@ package com.educandoweb.couser.entities;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 @Entity
 @Table(name = "tb_users")
@@ -16,6 +18,9 @@ public class Users implements Serializable {
     private String email;
     private String phone;
     private String password;
+
+    @OneToMany(mappedBy = "client")
+    private List<Order> Orders = new ArrayList<>();
 
 
     public Users(Long id, String name, String email, String phone, String password) {
@@ -66,6 +71,11 @@ public class Users implements Serializable {
         this.password = password;
     }
 
+
+    public List<Order> getOrders() {
+        return Orders;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -78,4 +88,6 @@ public class Users implements Serializable {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+
 }
