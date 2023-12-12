@@ -1,14 +1,8 @@
 package com.educandoweb.couser.config;
 
-import com.educandoweb.couser.entities.Category;
-import com.educandoweb.couser.entities.Order;
-import com.educandoweb.couser.entities.Product;
-import com.educandoweb.couser.entities.Users;
+import com.educandoweb.couser.entities.*;
 import com.educandoweb.couser.enums.OrderStatus;
-import com.educandoweb.couser.repositories.CategoryRepository;
-import com.educandoweb.couser.repositories.OrderRepository;
-import com.educandoweb.couser.repositories.ProductRepository;
-import com.educandoweb.couser.repositories.UsersRepository;
+import com.educandoweb.couser.repositories.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
@@ -28,6 +22,8 @@ public class TestConfig implements CommandLineRunner {
     private CategoryRepository categoryRepository;
     @Autowired
     private ProductRepository productRepository;
+    @Autowired
+    private OrderItemRepository orderItemRepository;
 
 
     @Override
@@ -68,6 +64,15 @@ public class TestConfig implements CommandLineRunner {
 
         usersRepository.saveAll(Arrays.asList(u1, u2));
         orderRepository.saveAll(Arrays.asList(o1, o2, o3));
+
+        OrderItem oi1 = new OrderItem(o1, p1, 2, p1.getPrice());
+        OrderItem oi2 = new OrderItem(o1, p3, 1, p3.getPrice());
+        OrderItem oi3 = new OrderItem(o2, p3, 2, p3.getPrice());
+        OrderItem oi4 = new OrderItem(o3, p5, 2, p5.getPrice());
+
+        orderItemRepository.saveAll(Arrays.asList(oi1, oi2, oi3, oi4));
+
+
     }
 
 }

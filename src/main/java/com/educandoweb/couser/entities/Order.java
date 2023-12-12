@@ -2,11 +2,15 @@ package com.educandoweb.couser.entities;
 
 import com.educandoweb.couser.enums.OrderStatus;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.io.Serializable;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
+
 @Entity
 @Table(name = "tb_orders")
 public class Order implements Serializable {
@@ -26,6 +30,9 @@ public class Order implements Serializable {
     public Order(){
 
     }
+
+    @OneToMany(mappedBy = "id.order")
+    Set<OrderItem> items = new HashSet<>();
 
     public Order(Long id, Instant moment,OrderStatus orderStatus, Users client) {
         super();
@@ -67,6 +74,10 @@ public class Order implements Serializable {
 
     public void setClient(Users client) {
         this.client = client;
+    }
+
+    public Set<OrderItem> getItems(){
+        return items;
     }
 
     @Override
