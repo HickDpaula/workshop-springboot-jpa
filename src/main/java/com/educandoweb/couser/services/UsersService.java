@@ -2,6 +2,7 @@ package com.educandoweb.couser.services;
 
 import com.educandoweb.couser.entities.Users;
 import com.educandoweb.couser.repositories.UsersRepository;
+import com.educandoweb.couser.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +20,7 @@ public class UsersService {
 
     public Users findById(Long id){
        Optional<Users> obj = repository.findById(id);
-       return obj.get();
+       return obj.orElseThrow(() -> new ResourceNotFoundException(id));
     }
 
     public Users Insert(Users obj){
