@@ -4,6 +4,7 @@ import com.educandoweb.couser.entities.Users;
 import com.educandoweb.couser.repositories.UsersRepository;
 import com.educandoweb.couser.services.exceptions.DataBaseException;
 import com.educandoweb.couser.services.exceptions.ResourceNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
@@ -41,9 +42,14 @@ public class UsersService {
     }
 
     public Users update(Long id, Users obj){
-        Users entity = repository.getReferenceById(id);
-        UpdateData(entity, obj);
-        return repository.save(entity);
+        try {
+            Users entity = repository.getReferenceById(id);
+
+            UpdateData(entity, obj);
+            return repository.save(entity);
+        } catch (EntityNotFoundException e){
+            throw new ResourceNotFoundException(id);
+        }
 
 
     }
